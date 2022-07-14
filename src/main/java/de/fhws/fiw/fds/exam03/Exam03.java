@@ -16,6 +16,7 @@
 
 package de.fhws.fiw.fds.exam03;
 
+import de.fhws.fiw.fds.exam02.api.services.*;
 import de.fhws.fiw.fds.sutton.server.api.AbstractApplication;
 
 import java.util.HashSet;
@@ -29,6 +30,13 @@ public class Exam03 extends AbstractApplication
 		final Set<Class<?>> returnValue = new HashSet<>( );
 
 		/* TODO: Add your service classes here */
+
+		returnValue.add( DispatcherService.class );
+		returnValue.add( StudyTripService.class );
+		returnValue.add( StudentService.class );
+
+		returnValue.add( InitializeDatabaseService.class );
+		returnValue.add( ResetDatabaseService.class );
 
 		return returnValue;
 	}

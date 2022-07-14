@@ -25,6 +25,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import static de.fhws.fiw.fds.exam03.utils.CacheControlHelper.cachePublicAndOneMinute;
+
 public abstract class AbstractState
 {
 	protected UriInfo uriInfo;
@@ -66,6 +68,7 @@ public abstract class AbstractState
 			e.printStackTrace( );
 
 			return this.responseBuilder.status( Response.Status.INTERNAL_SERVER_ERROR )
+										.cacheControl(cachePublicAndOneMinute())
 									   .build( );
 		}
 	}

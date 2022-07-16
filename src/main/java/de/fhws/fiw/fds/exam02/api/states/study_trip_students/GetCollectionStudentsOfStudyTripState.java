@@ -67,7 +67,7 @@ public class GetCollectionStudentsOfStudyTripState extends AbstractGetCollection
 	@Override
 	protected void configureState( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.createNoCacheNoStoreCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
 	}
 
 	public static class AllStudents extends AbstractRelationQuery<Student>

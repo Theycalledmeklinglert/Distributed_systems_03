@@ -79,7 +79,7 @@ public class GetSingleStudentOfStudyTripState extends AbstractGetRelationState<S
 	@Override
 	protected void defineHttpCaching( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.create30SecondsPrivateCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
 	}
 
 	@Override

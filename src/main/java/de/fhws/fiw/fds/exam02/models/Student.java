@@ -1,12 +1,12 @@
 package de.fhws.fiw.fds.exam02.models;
 
 import com.owlike.genson.annotation.JsonConverter;
-import de.fhws.fiw.fds.sutton.client.Link;
 import de.fhws.fiw.fds.sutton.server.api.converter.JsonServerLinkConverter;
 import de.fhws.fiw.fds.sutton.server.api.converter.XmlServerLinkConverter;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import org.glassfish.jersey.linking.InjectLink;
 
+import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.Comparator;

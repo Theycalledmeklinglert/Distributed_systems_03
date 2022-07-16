@@ -49,7 +49,7 @@ public class GetCollectionStudyTripsState extends AbstractGetCollectionState<Stu
 	@Override
 	protected void configureState( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.createNoCacheNoStoreCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
 	}
 
 	public static class ByAttributes extends AbstractQuery<StudyTrip>

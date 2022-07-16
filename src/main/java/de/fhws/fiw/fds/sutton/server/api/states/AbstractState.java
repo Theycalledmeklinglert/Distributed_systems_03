@@ -16,6 +16,7 @@
 
 package de.fhws.fiw.fds.sutton.server.api.states;
 
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.Hyperlinks;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,6 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import static de.fhws.fiw.fds.exam03.utils.CacheControlHelper.cachePublicAndOneMinute;
 
 public abstract class AbstractState
 {
@@ -68,7 +68,6 @@ public abstract class AbstractState
 			e.printStackTrace( );
 
 			return this.responseBuilder.status( Response.Status.INTERNAL_SERVER_ERROR )
-										.cacheControl(cachePublicAndOneMinute())
 									   .build( );
 		}
 	}

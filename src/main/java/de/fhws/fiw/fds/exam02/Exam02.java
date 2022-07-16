@@ -34,6 +34,8 @@ public class Exam02 extends AbstractApplication
 		returnValue.add( DispatcherService.class );
 		returnValue.add( StudyTripService.class );
 		returnValue.add( StudentService.class );
+		returnValue.add( UserService.class);
+		returnValue.add( StudyTripReportService.class);
 
 		returnValue.add( InitializeDatabaseService.class );
 		returnValue.add( ResetDatabaseService.class );

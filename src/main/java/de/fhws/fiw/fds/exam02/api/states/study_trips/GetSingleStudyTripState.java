@@ -4,6 +4,7 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.rel_types.IStudyTripRelTypes;
 import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.StudyTrip;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
@@ -23,7 +24,7 @@ public class GetSingleStudyTripState extends AbstractGetState<StudyTrip>
 
 	@Override protected void authorizeRequest( )
 	{
-
+		BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 	}
 
 	@Override protected SingleModelResult<StudyTrip> loadModel( )

@@ -17,6 +17,8 @@
 package de.fhws.fiw.fds.exam03;
 
 import de.fhws.fiw.fds.exam02.api.services.*;
+import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvConverter;
+import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvMessageBodyWriter;
 import de.fhws.fiw.fds.sutton.server.api.AbstractApplication;
 
 import java.util.HashSet;
@@ -25,6 +27,7 @@ import java.util.Set;
 //@ApplicationPath( "api" )
 public class Exam03 extends AbstractApplication
 {
+
 	@Override protected Set<Class<?>> getServiceClasses( )
 	{
 		final Set<Class<?>> returnValue = new HashSet<>( );

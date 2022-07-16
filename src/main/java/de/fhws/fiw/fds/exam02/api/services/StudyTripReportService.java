@@ -3,6 +3,7 @@ package de.fhws.fiw.fds.exam02.api.services;
 import de.fhws.fiw.fds.exam02.api.states.study_trip_reports.GetStudyTripReportState;
 import de.fhws.fiw.fds.exam02.models.StudyTripReportEntry;
 import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvMessageBodyWriter;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
@@ -19,16 +20,15 @@ import static de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffse
 public class StudyTripReportService extends AbstractService {
 
     @GET
-    @Produces( { MediaType.APPLICATION_JSON } )
+    @Produces( { MediaType.APPLICATION_JSON, StudyTripReportEntryCsvMessageBodyWriter.TEXT_CSV } )
     public Response getSingleStudyTrip(@QueryParam( "startDate" ) final LocalDate startDate,
                                        @DefaultValue( "" ) @QueryParam( "endDate" ) final LocalDate endDate, @DefaultValue( "0" ) @QueryParam( QUERY_PARAM_OFFSET ) final int offset,
                                        @DefaultValue( DEFAULT_PAGE_SIZE_STR ) @QueryParam( QUERY_PARAM_SIZE ) final int size )
     {
-      //  BearerAuthHelper.accessControl((HttpServletRequest) request);		// TODO: ???
 
         final AbstractQuery<StudyTripReportEntry> query = new GetStudyTripReportState.ByAttributes(startDate, endDate);
 
-     //   query.setPagingBehavior( new PagingBehaviorUsingOffsetSize<>( offset, size ) );
+        query.setPagingBehavior( new PagingBehaviorUsingOffsetSize<>( offset, size ) );
 
             return new GetStudyTripReportState.Builder( )
                     .setQuery( query )

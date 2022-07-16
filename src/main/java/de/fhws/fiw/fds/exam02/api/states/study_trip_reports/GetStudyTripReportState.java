@@ -6,6 +6,7 @@ import de.fhws.fiw.fds.exam02.models.Student;
 import de.fhws.fiw.fds.exam02.models.StudyTrip;
 import de.fhws.fiw.fds.exam02.models.StudyTripReportEntry;
 import de.fhws.fiw.fds.exam02.utils.study_trip.StudyTripDateUtils;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionState;
@@ -13,9 +14,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class GetStudyTripReportState extends AbstractGetCollectionState<StudyTri
 
 	@Override protected void authorizeRequest( )
 	{
-
+		BearerAuthHelper.accessControl(httpServletRequest, "admin");
 	}
 
 	@Override protected void defineTransitionLinks( )

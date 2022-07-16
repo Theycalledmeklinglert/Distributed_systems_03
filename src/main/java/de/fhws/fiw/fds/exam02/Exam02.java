@@ -3,6 +3,8 @@ package de.fhws.fiw.fds.exam02;
 import de.fhws.fiw.fds.exam02.api.services.*;
 import de.fhws.fiw.fds.exam02.database.util.InitializeDatabase;
 import de.fhws.fiw.fds.exam02.utils.date.LocalDateConverterProvider;
+import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvConverter;
+import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvMessageBodyWriter;
 import de.fhws.fiw.fds.sutton.server.api.AbstractApplication;
 
 import javax.ws.rs.ApplicationPath;
@@ -16,6 +18,8 @@ public class Exam02 extends AbstractApplication
 	{
 		super( );
 
+		register(StudyTripReportEntryCsvMessageBodyWriter.class);
+		register(StudyTripReportEntryCsvConverter.class);
 		register( LocalDateConverterProvider.class );
 
 		initializeDatabase( );

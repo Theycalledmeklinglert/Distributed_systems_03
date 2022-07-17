@@ -2,12 +2,10 @@ package de.fhws.fiw.fds.exam02.api.services;
 
 import de.fhws.fiw.fds.exam02.api.states.study_trip_reports.GetStudyTripReportState;
 import de.fhws.fiw.fds.exam02.models.StudyTripReportEntry;
-import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
-import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvMessageBodyWriter;
+import de.fhws.fiw.fds.exam03.utils.csvConverter.StudyTripReportEntryCsvMessageBodyWriter;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 
 import static de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize.*;
 
-@Path("studyTripReports")
+@Path("studyTripReport")
 public class StudyTripReportService extends AbstractService {
 
     @GET

@@ -10,6 +10,7 @@ public class StudyTripReportEntry extends AbstractModel implements Serializable,
     int numberOfStudents;
     int numberOfDays;
 
+
     public StudyTripReportEntry(String city, String country, int numberOfStudents, int numberOfDays) {
         this.city = city;
         this.country = country;
@@ -19,7 +20,6 @@ public class StudyTripReportEntry extends AbstractModel implements Serializable,
 
     public StudyTripReportEntry()
     {
-        super();
     }
 
     public String getCity() {

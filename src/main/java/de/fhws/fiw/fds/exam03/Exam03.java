@@ -17,8 +17,10 @@
 package de.fhws.fiw.fds.exam03;
 
 import de.fhws.fiw.fds.exam02.api.services.*;
-import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvConverter;
-import de.fhws.fiw.fds.exam03.utils.StudyTripReportEntryCsvMessageBodyWriter;
+import de.fhws.fiw.fds.exam02.database.util.InitializeDatabase;
+import de.fhws.fiw.fds.exam02.utils.date.LocalDateConverterProvider;
+import de.fhws.fiw.fds.exam03.utils.csvConverter.StudyTripReportEntryCsvConverter;
+import de.fhws.fiw.fds.exam03.utils.csvConverter.StudyTripReportEntryCsvMessageBodyWriter;
 import de.fhws.fiw.fds.sutton.server.api.AbstractApplication;
 
 import java.util.HashSet;
@@ -27,6 +29,23 @@ import java.util.Set;
 //@ApplicationPath( "api" )
 public class Exam03 extends AbstractApplication
 {
+
+	public Exam03( )
+	{
+		super( );
+
+		register(StudyTripReportEntryCsvMessageBodyWriter.class);
+	 	register(StudyTripReportEntryCsvConverter.class);
+		register( LocalDateConverterProvider.class );
+
+		initializeDatabase( );
+	}
+
+	private void initializeDatabase()
+	{
+		InitializeDatabase initDB = new InitializeDatabase();
+		initDB.initialize();
+	}
 
 	@Override protected Set<Class<?>> getServiceClasses( )
 	{

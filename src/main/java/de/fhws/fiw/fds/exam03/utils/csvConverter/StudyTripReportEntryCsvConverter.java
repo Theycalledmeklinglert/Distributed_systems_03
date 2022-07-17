@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.exam03.utils;
+package de.fhws.fiw.fds.exam03.utils.csvConverter;
 
 
 import de.fhws.fiw.fds.exam02.models.StudyTripReportEntry;
@@ -18,7 +18,7 @@ public class StudyTripReportEntryCsvConverter
 		this.appendable = appendable;
 		this.csvPrinter = new CSVPrinter(
 			appendable,
-			CSVFormat.DEFAULT.withHeader( "Id", "Firstname", "Lastname", "Date of Birth", "Email" ) );
+			CSVFormat.DEFAULT.withHeader( "City", "Country", "Number of students", "Number of days") );
 	}
 
 	public void write( final StudyTripReportEntry entry )
@@ -27,7 +27,7 @@ public class StudyTripReportEntryCsvConverter
 		{
 			this.csvPrinter.printRecord(
 					entry.getCity(),
-				entry.getCountry(),
+					entry.getCountry(),
 					entry.getNumberOfStudents(),
 					entry.getNumberOfDays());
 			this.csvPrinter.flush( );

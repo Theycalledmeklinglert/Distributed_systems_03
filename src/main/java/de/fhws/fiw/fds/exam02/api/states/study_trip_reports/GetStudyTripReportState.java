@@ -31,7 +31,7 @@ public class GetStudyTripReportState extends AbstractGetCollectionState<StudyTri
 
 	@Override protected void authorizeRequest( )
 	{
-		BearerAuthHelper.accessControl(httpServletRequest, "admin");
+		//BearerAuthHelper.accessControl(httpServletRequest, "admin");
 	}
 
 	@Override protected void defineTransitionLinks( )
@@ -72,7 +72,7 @@ public class GetStudyTripReportState extends AbstractGetCollectionState<StudyTri
 			final Collection<StudyTrip> studyTripsFromDb =
 					DaoFactory.getInstance( ).getStudyTripDao( ).readByPredicate( byAttributes( ) ).getResult( );
 
-			final List<StudyTrip> sortedStudyTrips = new LinkedList<>( studyTripsFromDb );
+			final List<StudyTrip> sortedStudyTrips = new ArrayList<>( studyTripsFromDb );
 			sortedStudyTrips.sort( StudyTrip.getComparator( ) );
 
 			IStudyTripStudentDao storage = DaoFactory.getInstance().getStudyTripStudentDao();

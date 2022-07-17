@@ -5,12 +5,16 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripStudentUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.database.spi.IStudyTripStudentDao;
 import de.fhws.fiw.fds.exam02.models.Student;
+import de.fhws.fiw.fds.exam02.models.StudyTrip;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.User;
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractRelationQuery;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionRelationState;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.GenericEntity;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -23,10 +27,9 @@ public class GetCollectionStudentsOfStudyTripState extends AbstractGetCollection
 		super( builder );
 	}
 
-	@Override
-	protected void authorizeRequest( )
+	@Override protected void authorizeRequest( )
 	{
-
+		User user = BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 	}
 
 	@Override
@@ -67,7 +70,7 @@ public class GetCollectionStudentsOfStudyTripState extends AbstractGetCollection
 	@Override
 	protected void configureState( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create30SecondsPrivateCaching( ) );
 	}
 
 	public static class AllStudents extends AbstractRelationQuery<Student>

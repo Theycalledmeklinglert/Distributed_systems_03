@@ -4,6 +4,9 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.rel_types.IStudentRelTypes;
 import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudentUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.Student;
+import de.fhws.fiw.fds.exam02.models.StudyTrip;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.User;
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
@@ -11,6 +14,7 @@ import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetState;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Response;
 
@@ -23,7 +27,7 @@ public class GetSingleStudentState extends AbstractGetState<Student>
 
 	@Override protected void authorizeRequest( )
 	{
-
+		User user = BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 	}
 
 	@Override protected SingleModelResult<Student> loadModel( )
@@ -39,7 +43,7 @@ public class GetSingleStudentState extends AbstractGetState<Student>
 
 	@Override protected void defineHttpCaching( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create30SecondsPrivateCaching( ) );
 	}
 
 	@Override protected boolean clientKnowsCurrentModelState( final AbstractModel modelFromDatabase )

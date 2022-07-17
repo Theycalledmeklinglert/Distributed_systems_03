@@ -5,6 +5,7 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.StudyTrip;
 import de.fhws.fiw.fds.exam02.utils.study_trip.StudyTripDateUtils;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
@@ -29,7 +30,7 @@ public class GetCollectionStudyTripsState extends AbstractGetCollectionState<Stu
 	@Override
 	protected void authorizeRequest( )
 	{
-
+		BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class GetCollectionStudyTripsState extends AbstractGetCollectionState<Stu
 	@Override
 	protected void configureState( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create30SecondsPrivateCaching( ) );
 	}
 
 	public static class ByAttributes extends AbstractQuery<StudyTrip>

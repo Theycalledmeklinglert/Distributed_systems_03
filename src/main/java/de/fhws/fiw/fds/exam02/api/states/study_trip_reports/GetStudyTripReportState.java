@@ -31,7 +31,7 @@ public class GetStudyTripReportState extends AbstractGetCollectionState<StudyTri
 
 	@Override protected void authorizeRequest( )
 	{
-		//BearerAuthHelper.accessControl(httpServletRequest, "admin");
+		BearerAuthHelper.accessControl(httpServletRequest, "admin");
 	}
 
 	@Override protected void defineTransitionLinks( )

@@ -29,7 +29,6 @@ public class StudyTripService extends AbstractService
 		@DefaultValue( "0" ) @QueryParam( QUERY_PARAM_OFFSET ) final int offset,
 		@DefaultValue( DEFAULT_PAGE_SIZE_STR ) @QueryParam( QUERY_PARAM_SIZE ) final int size )
 	{
-	//	BearerAuthHelper.accessControl((HttpServletRequest) request);		// TODO: ???
 
 		final AbstractQuery<StudyTrip> query = new GetCollectionStudyTripsState.ByAttributes(
 			name,
@@ -55,7 +54,6 @@ public class StudyTripService extends AbstractService
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response getSingleStudyTrip( @PathParam( "id" ) final long id )
 	{
-	//	BearerAuthHelper.accessControl((HttpServletRequest) request);		// TODO: ???
 
 		return new GetSingleStudyTripState.Builder( )
 			.setRequestedId( id )

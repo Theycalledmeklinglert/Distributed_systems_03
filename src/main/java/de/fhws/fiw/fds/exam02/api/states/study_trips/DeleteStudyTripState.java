@@ -1,5 +1,7 @@
 package de.fhws.fiw.fds.exam02.api.states.study_trips;
 
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.User;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
@@ -8,6 +10,8 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.rel_types.IStudyTripRelTypes;
 import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.StudyTrip;
+
+import javax.ws.rs.NotAuthorizedException;
 
 public class DeleteStudyTripState extends AbstractDeleteState<StudyTrip>
 {
@@ -18,7 +22,13 @@ public class DeleteStudyTripState extends AbstractDeleteState<StudyTrip>
 
 	@Override protected void authorizeRequest( )
 	{
+		User user = BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 
+		if(!user.getRole().equals("admin"))
+		{
+			StudyTrip checkAgainst = loadModel().getResult();
+			if (!user.getId().equals(checkAgainst.getOrganizer())) throw new NotAuthorizedException("");
+		}
 	}
 
 	@Override protected SingleModelResult<StudyTrip> loadModel( )

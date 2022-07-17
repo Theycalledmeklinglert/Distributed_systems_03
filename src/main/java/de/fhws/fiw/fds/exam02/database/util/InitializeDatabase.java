@@ -17,7 +17,8 @@ public class InitializeDatabase
 			LocalDate.of( 2022, 3, 1 ),
 			"Christ University",
 			"Bangalore",
-			"India" ),
+			"India",
+				"Admin"),
 
 		new StudyTrip(
 			"Indienreise 2000",
@@ -25,7 +26,8 @@ public class InitializeDatabase
 			LocalDate.of( 2000, 2, 10 ),
 			"University of Mumbai",
 			"Mumbai",
-			"India" ),
+			"India",
+				"Admin"),
 
 		new StudyTrip(
 			"Frankreich 2020",
@@ -33,7 +35,8 @@ public class InitializeDatabase
 			LocalDate.of( 2020, 6, 30 ),
 			"FHWS",
 			"Paris",
-			"Frankreich" ),
+			"Frankreich",
+				"Admin"),
 
 		new StudyTrip(
 			"Würzburg 2021",
@@ -41,7 +44,8 @@ public class InitializeDatabase
 			LocalDate.of( 2021, 5, 30 ),
 			"FHWS",
 			"Würzburg",
-			"Deutschland" ),
+			"Deutschland",
+				"Admin"),
 
 		new StudyTrip(
 			"Würzburg 2022",
@@ -49,7 +53,8 @@ public class InitializeDatabase
 			LocalDate.of( 2022, 1, 30 ),
 			"FHWS",
 			"Würzburg",
-			"Deutschland" ),
+			"Deutschland",
+				"Admin"),
 
 		new StudyTrip(
 			"Schweinfurt 2021",
@@ -57,7 +62,8 @@ public class InitializeDatabase
 			LocalDate.of( 2021, 2, 25 ),
 			"FHWS",
 			"Schweinfurt",
-			"Deutschland" )
+			"Deutschland",
+				"Admin")
 	);
 
 	private final List<Student> students = Arrays.asList(

@@ -4,6 +4,9 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.rel_types.IStudyTripStudentRelTypes
 import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripStudentUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.Student;
+import de.fhws.fiw.fds.exam02.models.StudyTrip;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.User;
 import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.put.AbstractPutRelationState;
@@ -11,6 +14,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Response;
 
@@ -21,10 +25,15 @@ public class PutStudentOfStudyTripState extends AbstractPutRelationState<Student
 		super( builder );
 	}
 
-	@Override
-	protected void authorizeRequest( )
+	@Override protected void authorizeRequest( )
 	{
+		User user = BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 
+		if(!user.getRole().equals("admin"))
+		{
+			StudyTrip checkAgainst = DaoFactory.getInstance().getStudyTripDao().readById(primaryId).getResult();
+			if (!user.getId().equals(checkAgainst.getOrganizer())) throw new NotAuthorizedException("");
+		}
 	}
 
 	@Override

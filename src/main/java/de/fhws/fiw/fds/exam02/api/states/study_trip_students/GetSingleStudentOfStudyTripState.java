@@ -4,6 +4,8 @@ import de.fhws.fiw.fds.exam02.api.hypermedia.rel_types.IStudyTripStudentRelTypes
 import de.fhws.fiw.fds.exam02.api.hypermedia.uris.IStudyTripStudentUri;
 import de.fhws.fiw.fds.exam02.database.DaoFactory;
 import de.fhws.fiw.fds.exam02.models.Student;
+import de.fhws.fiw.fds.exam03.utils.BearerAuthHelper;
+import de.fhws.fiw.fds.exam03.utils.User;
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
@@ -21,10 +23,9 @@ public class GetSingleStudentOfStudyTripState extends AbstractGetRelationState<S
 		super( builder );
 	}
 
-	@Override
-	protected void authorizeRequest( )
+	@Override protected void authorizeRequest( )
 	{
-
+		User user = BearerAuthHelper.accessControl(httpServletRequest, "admin", "lecturer");
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class GetSingleStudentOfStudyTripState extends AbstractGetRelationState<S
 	@Override
 	protected void defineHttpCaching( )
 	{
-		this.responseBuilder.cacheControl( CachingUtils.create60SecondsPublicCaching( ) );
+		this.responseBuilder.cacheControl( CachingUtils.create30SecondsPrivateCaching( ) );
 	}
 
 	@Override

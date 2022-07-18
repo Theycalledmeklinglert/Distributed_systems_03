@@ -117,6 +117,9 @@ public class RestApiResponse<M extends AbstractModel>
 		return locationHeader;
 	}
 
+	public String getCachingHeader(){return this.allResponseHeaders.get("X-Proxy-Cache");}
+
+
 	public Map<String, Link> getRelationTypeToLinkHeaderMap( )
 	{
 		return relationTypeToLinkHeaderMap;

@@ -6,6 +6,9 @@ import de.fhws.fiw.fds.exam02.tests.student.AbstractStudentTest;
 import de.fhws.fiw.fds.exam02.tests.util.headers.HeaderMapUtils;
 import org.junit.Test;
 
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -40,13 +43,16 @@ public class AuthorizationStudyTripTest extends AbstractStudyTripTest {
     @Test
     public void testGet_Unauthorized_401( ) throws IOException
     {
-        final RestApiResponse<StudyTrip> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, "random", "user" );
+        RestApiResponse<StudyTrip> response = null;
+        try {
 
-        assertEquals( 401, response.getLastStatusCode( ) );
+            response = getSingleRequestById(HeaderMapUtils.withAcceptJson(), 1, "random", "user");
+        }
+        catch(WebApplicationException e){
 
-        final StudyTrip studyTrip = response.getResponseSingleData( );
-
-        assertNull( studyTrip );
+        assertEquals( "HTTP 401 Unauthorized", e.getMessage() );
+        assertNull( response );
+    }
 
     }
 

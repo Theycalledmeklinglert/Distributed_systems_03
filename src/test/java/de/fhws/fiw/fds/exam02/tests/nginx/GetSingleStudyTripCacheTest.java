@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class GetSingleStudyTripCacheTest {
+    /*
     private final static String URL = IBaseUrl.BASE_URL;
     public final static String UPDATE_STUDENT = "updateStudent";
 
@@ -47,8 +48,6 @@ public class GetSingleStudyTripCacheTest {
         assertEquals("http://localhost/exam03/api/studytrips/2", studyTrip.getStudents());      // TODO: Check
         assertEquals("http://localhost/exam03/api/studytrips/2/students", studyTrip.getSelfLink());     // TODO: check
     }
-
-    /*
 
     @Test
     public void test_hypermedia( ) throws IOException
@@ -134,6 +133,8 @@ public class GetSingleStudyTripCacheTest {
     }
 
 
-
      */
+
+
+
 }

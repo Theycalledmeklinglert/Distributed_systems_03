@@ -11,7 +11,7 @@ public class JWTAuthInterceptor implements Interceptor {
         public JWTAuthInterceptor( final String jsonToken)
         {
             System.out.println(jsonToken);
-            this.jsonToken = jsonToken;
+            this.jsonToken = "Bearer " + jsonToken;
         }
 
         @Override public Response intercept(final Chain chain ) throws IOException

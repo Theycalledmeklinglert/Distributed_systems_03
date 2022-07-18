@@ -8,9 +8,22 @@ import org.glassfish.jersey.linking.InjectLink;
 import javax.ws.rs.core.Link;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 {
+	private long id;
+
+	@Override
+	public long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	private String name;
 
 	private LocalDate startDate;
@@ -35,10 +48,11 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 
 	@InjectLink(
 		style = InjectLink.Style.ABSOLUTE,
-		value = "/studytrips/${instance.id}",
-		rel = "getAllStudents",
-		title = "getAllStudents",
-		type = "application/json" )
+		value = "studytrips/${instance.id}/students",
+		rel = "getStudentsOfStudyTrip",
+		title = "students",
+		type = "application/json"
+	)
 	private Link students;
 
 	@InjectLink(
@@ -53,21 +67,7 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 	{
 
 	}
-	public StudyTrip(
-			final String name,
-			final LocalDate startDate,
-			final LocalDate endDate,
-			final String companyName,
-			final String cityName,
-			final String countryName)
-	{
-		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.companyName = companyName;
-		this.cityName = cityName;
-		this.countryName = countryName;
-	}
+
 	public StudyTrip(
 		final String name,
 		final LocalDate startDate,
@@ -76,6 +76,7 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 		final String cityName,
 		final String countryName,
 		final String organizer)
+
 	{
 		this.name = name;
 		this.startDate = startDate;
@@ -84,6 +85,11 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 		this.cityName = cityName;
 		this.countryName = countryName;
 		this.organizer = organizer;
+	}
+
+	public static Comparator<StudyTrip> getComparator( )
+	{
+		return Comparator.comparing( StudyTrip::getStartDate );
 	}
 
 	public String getName( )
@@ -178,7 +184,7 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 		return "StudyTrip {" +
 			"id:" + this.id +
 			", name: '" + this.name + '\'' +
-			", firstDate:" + this.startDate +
+			", startDate:" + this.startDate +
 			", lastDate: " + this.endDate +
 			", companyName: '" + this.companyName + '\'' +
 			", cityName: '" + this.cityName + '\'' +

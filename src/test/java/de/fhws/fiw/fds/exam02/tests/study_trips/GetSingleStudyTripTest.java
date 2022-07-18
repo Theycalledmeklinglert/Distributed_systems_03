@@ -39,27 +39,27 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
         assertEquals("http://localhost/exam03/api/studytrips/2/students", studyTrip.getSelfLink());     // TODO: check
     }
 
-    /*
+
 
     @Test
     public void test_hypermedia( ) throws IOException
     {
-        final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
+        final RestApiResponse<StudyTrip> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
         checkLinkHeaders( response );
     }
 
-    private void checkLinkHeaders( final RestApiResponse<Student> response )
+    private void checkLinkHeaders( final RestApiResponse<StudyTrip> response )
     {
-        assertLinkHeaderEquals( response, UPDATE_STUDENT, BASE_URL + "students/{id}" );
-        assertLinkHeaderEquals( response, DELETE_STUDENT, BASE_URL + "students/{id}" );
-        assertLinkHeaderEquals( response, SELF, BASE_URL + "students/1" );
+        assertLinkHeaderEquals( response, UPDATE_SINGLE_STUDY_TRIP, BASE_URL + "studytrips/{id}" );
+        assertLinkHeaderEquals( response, DELETE_SINGLE_STUDY_TRIP, BASE_URL + "studytrips/{id}" );
+        assertLinkHeaderEquals( response, SELF, BASE_URL + "studytrip/1" );
     }
 
     @Test
     public void test_correct_media_type( ) throws IOException
     {
-        final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
+        final RestApiResponse<StudyTrip> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 
         assertEquals( 200, response.getLastStatusCode( ) );
     }
@@ -67,7 +67,7 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
     @Test
     public void test_incorrect_media_type( ) throws IOException
     {
-        final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1, userName, password  );
+        final RestApiResponse<StudyTrip> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1, userName, password  );
 
         assertEquals( 406, response.getLastStatusCode( ) );
     }
@@ -76,7 +76,7 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
     public void test_conditional_get_304( ) throws IOException
     {
         //user A loads a student
-        final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
+        final RestApiResponse<StudyTrip> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 
         assertHeaderExists( responseFromFirstGetRequest, ETAG );
 
@@ -86,7 +86,7 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
         final HeaderMap headersForSecondGetRequest = HeaderMapUtils.withAcceptJson( );
         headersForSecondGetRequest.addHeader( IF_NONE_MATCH, etag );
 
-        final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
+        final RestApiResponse<StudyTrip> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
 
         assertEquals( 304, responseFromSecondGetRequest.getLastStatusCode( ) );
     }
@@ -95,20 +95,20 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
     public void test_conditional_get_200( ) throws IOException
     {
         //user A loads a student
-        final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
-        final Student student = responseFromFirstGetRequest.getResponseSingleData( );
+        final RestApiResponse<StudyTrip> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
+        final StudyTrip studyTrip = responseFromFirstGetRequest.getResponseSingleData( );
 
         assertHeaderExists( responseFromFirstGetRequest, ETAG );
 
         final String initialEtag = responseFromFirstGetRequest.getEtagHeader( );
 
         //user B updates this resource
-        student.setFirstName( "Robert" );
+        studyTrip.setCityName( "Koenigheim" );
 
         final HeaderMap headersForPutRequestForUserB = HeaderMapUtils.withContentTypeJson( );
         headersForPutRequestForUserB.addHeader( IF_MATCH, initialEtag );
 
-        final RestApiResponse<Student> responseFromPutRequest = putRequest( headersForPutRequestForUserB, student, userName, password  );
+        final RestApiResponse<StudyTrip> responseFromPutRequest = putRequest( headersForPutRequestForUserB, studyTrip, userName, password  );
 
         assertEquals( 204, responseFromPutRequest.getLastStatusCode( ) );
 
@@ -118,12 +118,12 @@ public class GetSingleStudyTripTest extends AbstractStudyTripTest {
         final HeaderMap headersForSecondGetRequest = HeaderMapUtils.withAcceptJson( );
         headersForSecondGetRequest.addHeader( IF_NONE_MATCH, initialEtag );
 
-        final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
+        final RestApiResponse<StudyTrip> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
 
         assertEquals( 200, responseFromSecondGetRequest.getLastStatusCode( ) );
         assertNotNull( responseFromSecondGetRequest.getResponseSingleData( ) );
     }
 
-     */
+
 
 }

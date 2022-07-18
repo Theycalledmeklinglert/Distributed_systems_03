@@ -42,7 +42,7 @@ public class GenericWebClient<T extends AbstractModel>
 
 	public GenericWebClient( )
 	{
-		this( "", "" );
+		this( "Admin", "secret" );
 	}
 
 	public GenericWebClient(

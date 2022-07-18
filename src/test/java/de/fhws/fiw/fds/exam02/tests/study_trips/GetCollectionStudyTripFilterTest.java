@@ -125,7 +125,7 @@ public class GetCollectionStudyTripFilterTest extends AbstractStudyTripTest
 
 	private void filterTest( final String queryString, final String... expectedNamesOfStudyTrips ) throws IOException
 	{
-		final RestApiResponse<StudyTrip> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + queryString );
+		final RestApiResponse<StudyTrip> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + queryString, userName, password  );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( expectedNamesOfStudyTrips.length, response.getResponseCollectionData( ).size( ) );

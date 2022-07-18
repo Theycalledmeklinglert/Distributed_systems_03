@@ -23,6 +23,16 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 
 	private String countryName;
 
+	private String organizer;
+
+	public String getOrganizer() {
+		return organizer;
+	}
+
+	public void setOrganizer(String organizer) {
+		this.organizer = organizer;
+	}
+
 	@InjectLink(
 		style = InjectLink.Style.ABSOLUTE,
 		value = "/studytrips/${instance.id}",
@@ -43,14 +53,13 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 	{
 
 	}
-
 	public StudyTrip(
-		final String name,
-		final LocalDate startDate,
-		final LocalDate endDate,
-		final String companyName,
-		final String cityName,
-		final String countryName )
+			final String name,
+			final LocalDate startDate,
+			final LocalDate endDate,
+			final String companyName,
+			final String cityName,
+			final String countryName)
 	{
 		this.name = name;
 		this.startDate = startDate;
@@ -58,6 +67,23 @@ public class StudyTrip extends AbstractModel implements Serializable, Cloneable
 		this.companyName = companyName;
 		this.cityName = cityName;
 		this.countryName = countryName;
+	}
+	public StudyTrip(
+		final String name,
+		final LocalDate startDate,
+		final LocalDate endDate,
+		final String companyName,
+		final String cityName,
+		final String countryName,
+		final String organizer)
+	{
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.companyName = companyName;
+		this.cityName = cityName;
+		this.countryName = countryName;
+		this.organizer = organizer;
 	}
 
 	public String getName( )

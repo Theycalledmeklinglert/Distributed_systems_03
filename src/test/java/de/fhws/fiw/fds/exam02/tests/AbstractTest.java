@@ -39,97 +39,97 @@ public abstract class AbstractTest<R extends AbstractModel, C extends AbstractRe
 		return IBaseUrl.BASE_URL;
 	}
 
-	protected abstract C newRestClient( final HeaderMap headers );
+	protected abstract C newRestClient(String userName, String password, final HeaderMap headers );
 
 	protected RestApiResponse<R> getCollectionRequest(
-		final HeaderMap headers )
+		final HeaderMap headers, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).loadAllResources( );
+		return newRestClient( userName, password, headers ).loadAllResources( );
 	}
 
 	protected RestApiResponse<R> getCollectionRequestByUrl(
 		final HeaderMap headers,
-		final String url )
+		final String url, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).loadAllResourcesByUrl( url );
+		return newRestClient(userName, password, headers ).loadAllResourcesByUrl( url );
 	}
 
 	protected RestApiResponse<R> getSingleRequestByUrl(
 		final HeaderMap headers,
-		final String url )
+		final String url, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).loadSingleResourceByUrl( url );
+		return newRestClient(userName, password, headers ).loadSingleResourceByUrl( url );
 	}
 
 	protected RestApiResponse<R> getSingleRequestById(
 		final HeaderMap headers,
-		final long id )
+		final long id, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).loadSingleResourceById( id );
+		return newRestClient(userName, password, headers ).loadSingleResourceById( id );
 	}
 
 	protected RestApiResponse<R> postRequest(
 		final HeaderMap headers,
-		final R resource )
+		final R resource, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).create( resource );
+		return newRestClient(userName, password, headers ).create( resource );
 	}
 
 	protected RestApiResponse<R> postRequestByUrl(
 		final HeaderMap headers,
 		final R resource,
-		final String url )
+		final String url, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).createByUrl( url, resource );
+		return newRestClient(userName, password, headers ).createByUrl( url, resource );
 	}
 
 	protected RestApiResponse<R> putRequest(
 		final HeaderMap headerMap,
-		final R resource )
+		final R resource, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headerMap ).update( resource );
+		return newRestClient(userName, password, headerMap ).update( resource );
 	}
 
 	protected RestApiResponse<R> putRequestByUrl(
 		final HeaderMap headerMap,
 		final R resource,
-		final String url )
+		final String url, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headerMap ).updateByUrl( resource, url );
+		return newRestClient(userName, password, headerMap ).updateByUrl( resource, url );
 	}
 
 	protected RestApiResponse<R> deleteRequest(
 		final HeaderMap headers,
-		final R resource )
+		final R resource, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).delete( resource );
+		return newRestClient(userName, password, headers ).delete( resource );
 	}
 
 	protected RestApiResponse<R> deleteRequestById(
 		final HeaderMap headers,
-		final long id )
+		final long id, String userName, String password )
 		throws IOException
 	{
-		final R resource = getSingleRequestById( headers, id ).getResponseSingleData( );
+		final R resource = getSingleRequestById( headers, id, userName, password ).getResponseSingleData( );
 
-		return deleteRequest( headers, resource );
+		return deleteRequest( headers, resource, userName, password );
 	}
 
 	protected RestApiResponse<R> deleteRequestByUrl(
 		final HeaderMap headers,
-		final String url )
+		final String url, String userName, String password )
 		throws IOException
 	{
-		return newRestClient( headers ).deleteByUrl( url );
+		return newRestClient( userName, password, headers).deleteByUrl( url );
 	}
 
 	protected void assertLinkHeaderExists(

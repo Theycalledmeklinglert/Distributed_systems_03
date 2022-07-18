@@ -25,10 +25,13 @@ public abstract class AbstractStudyTripTest extends AbstractTest<StudyTrip, Stud
 
 	protected final static String[] ALL_STUDY_TRIPS_SORTED = new String[]{ INDIA_TRIP_00, FR_20, SW_21, WUE_21, WUE_22, INDIA_GATEWAY_22 };
 
+	String userName = "Admin";
+	String password = "secret";
+
 	@Override
-	protected StudyTripRestClient newRestClient( final HeaderMap headers )
+	protected StudyTripRestClient newRestClient(String userName, String password, final HeaderMap headers )
 	{
-		return new StudyTripRestClient( headers );
+		return new StudyTripRestClient(userName, password, headers );
 	}
 
 	@Override

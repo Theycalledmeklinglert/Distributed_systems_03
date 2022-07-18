@@ -54,9 +54,23 @@ public class DispatcherTest extends AbstractTest<EmptyResource, EmptyResourceRes
 		assertEquals( 406, response.getLastStatusCode( ) );
 	}
 
-	@Override
-	protected EmptyResourceRestClient newRestClient( final HeaderMap headers )
+//	@Override
+	protected EmptyResourceRestClient newRestClient(String userName, String password, final HeaderMap headers )
 	{
-		return new EmptyResourceRestClient( headers );
+		return new EmptyResourceRestClient(userName, password, headers );
 	}
+
+
+
+	/*
+	@Test
+	public void throw_away_test( ) throws IOException
+	{
+		System.out.println();
+		final TestClient testClient = new TestClient( );
+		testClient.sendAuthRequest(ClientUser.ANONYMOUS.getUserName(), ClientUser.ANONYMOUS.getPassword() );
+		assertEquals(1,1);
+	}
+	*/
+
 }

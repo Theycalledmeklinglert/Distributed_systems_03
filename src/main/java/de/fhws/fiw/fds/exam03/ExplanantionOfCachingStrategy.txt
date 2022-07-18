@@ -1,0 +1,6 @@
+I have decided to make use of private caching in this system because the proper support of authorization
+is otherwise not possible. If we use public caching a classified ressource that is requested by an authorized
+user will get saved by nginx and can then be requested by unauthorized users from the cache. This would completely
+invalidate the authorization of the system since only lecturers and admins are allowed to get information from the system
+and I have therefore decided not to use public caching.
+

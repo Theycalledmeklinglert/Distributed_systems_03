@@ -29,6 +29,7 @@ public class GetSingleStudyTripState extends AbstractGetState<StudyTrip>
 
 	@Override protected SingleModelResult<StudyTrip> loadModel( )
 	{
+		System.out.println(DaoFactory.getInstance( ).getStudyTripDao( ).readById( this.requestedId ).getResult().getStudents());
 		return DaoFactory.getInstance( ).getStudyTripDao( ).readById( this.requestedId );
 	}
 

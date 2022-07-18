@@ -23,7 +23,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_200_show_all_false( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=false" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=false", userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 3, response.getResponseCollectionData( ).size( ) );
@@ -39,7 +39,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_200_show_all_true( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=true" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=true", userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 4, response.getResponseCollectionData( ).size( ) );
@@ -48,7 +48,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_hypermedia( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		assertLinkHeaderStartsWith( response, SELF, defineBaseUrl( ) );
 		assertLinkHeaderStartsWith( response, CREATE_STUDENT_OF_STUDY_TRIP, defineBaseUrl( ) );
@@ -58,7 +58,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 	}
@@ -66,7 +66,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptXml( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptXml( ), userName, password );
 
 		assertEquals( 406, response.getLastStatusCode( ) );
 	}
@@ -74,7 +74,7 @@ public class GetAllStudentsOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_sort_by_last_name_and_first_name( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=true" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=true", userName, password );
 
 		final Collection<String> receivedFullNamesOfStudents = extractFullNamesOfStudents( response );
 

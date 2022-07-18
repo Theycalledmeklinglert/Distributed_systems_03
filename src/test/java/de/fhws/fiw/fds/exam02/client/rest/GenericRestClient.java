@@ -1,13 +1,20 @@
 package de.fhws.fiw.fds.exam02.client.rest;
 
 import com.owlike.genson.GenericType;
+import de.fhws.fiw.fds.exam02.client.IBaseUrl;
+import de.fhws.fiw.fds.exam02.client.auth.BasicAuthInterceptor;
+import de.fhws.fiw.fds.exam02.client.auth.JWTAuthInterceptor;
 import de.fhws.fiw.fds.sutton.client.Link;
 import de.fhws.fiw.fds.exam02.client.web.GenericWebClient;
 import de.fhws.fiw.fds.exam02.client.web.WebApiResponse;
 import de.fhws.fiw.fds.exam02.tests.models.AbstractModel;
 import de.fhws.fiw.fds.exam02.tests.util.ClientUser;
 import de.fhws.fiw.fds.exam02.tests.util.headers.HeaderMap;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -19,14 +26,16 @@ public class GenericRestClient<M extends AbstractModel>
 {
 	private final GenericWebClient<M> webClient;
 
-	public GenericRestClient( )
+	/* public GenericRestClient( )
 	{
 		this( new HeaderMap( ) );
 	}
 
-	public GenericRestClient( final HeaderMap headers )
+	 */
+
+	public GenericRestClient( String userName, String password, final HeaderMap headers)
 	{
-		this.webClient = new GenericWebClient( ClientUser.ANONYMOUS.getUserName( ), ClientUser.ANONYMOUS.getPassword( ), headers );
+		this.webClient = new GenericWebClient( userName, password, headers );
 	}
 
 	public RestApiResponse<M> sendGetSingleRequest( final String url ) throws IOException

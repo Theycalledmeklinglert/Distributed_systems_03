@@ -22,7 +22,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_200( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "/1" );
+		final RestApiResponse<Student> response = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "/1", userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 
@@ -42,7 +42,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_hypermedia_for_linked_student( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
 		assertLinkHeaderEquals( response, SELF, defineBaseUrl( ) + "/1" );
 		assertLinkHeaderStartsWith( response, GET_ALL_LINKED_STUDENTS, defineBaseUrl( ) );
@@ -54,7 +54,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_hypermedia_for_unlinked_student( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 4 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 4, userName, password );
 
 		assertLinkHeaderEquals( response, SELF, defineBaseUrl( ) + "/4" );
 		assertLinkHeaderStartsWith( response, GET_ALL_LINKED_STUDENTS, defineBaseUrl( ) );
@@ -66,7 +66,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 	}
@@ -74,7 +74,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1, userName, password );
 
 		assertEquals( 406, response.getLastStatusCode( ) );
 	}
@@ -82,7 +82,7 @@ public class GetStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_cache_control( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
 		assertHeaderExists( response, CACHE_CONTROL );
 	}

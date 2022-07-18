@@ -1,7 +1,9 @@
 package de.fhws.fiw.fds.exam02.tests.study_trip_students;
 
 import de.fhws.fiw.fds.exam02.client.rest.RestApiResponse;
+import de.fhws.fiw.fds.exam02.client.rest.resources.StudyTripStudentRestClient;
 import de.fhws.fiw.fds.exam02.tests.models.Student;
+import de.fhws.fiw.fds.exam02.tests.util.headers.HeaderMap;
 import de.fhws.fiw.fds.exam02.tests.util.headers.HeaderMapUtils;
 import org.junit.Test;
 
@@ -11,11 +13,15 @@ import static org.junit.Assert.*;
 
 public class PostNewStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 {
+	String userName = "Admin";
+	String password = "secret";
+
 	@Test
 	public void test_201( ) throws IOException
 	{
+
 		//create new sub resource
-		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), defineBaseUrl( ) );
+		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), defineBaseUrl( ), userName, password );
 		final String locationHeader = response.getLocationHeader( );
 
 		assertEquals( 201, response.getLastStatusCode( ) );
@@ -23,7 +29,7 @@ public class PostNewStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 		assertTrue( locationHeader.startsWith( defineBaseUrl( ) ) );
 
 		//test if resource attributes are set correctly
-		final RestApiResponse<Student> responseFromGetSingleRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader );
+		final RestApiResponse<Student> responseFromGetSingleRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader, userName, password );
 		final Student student = responseFromGetSingleRequest.getResponseSingleData( );
 
 		assertNotNull( student );
@@ -51,7 +57,7 @@ public class PostNewStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), defineBaseUrl( ) );
+		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), defineBaseUrl( ), userName, password );
 
 		assertEquals( 201, response.getLastStatusCode( ) );
 	}
@@ -59,7 +65,7 @@ public class PostNewStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeXml( ), defineNewResource( ), defineBaseUrl( ) );
+		final RestApiResponse<Student> response = postRequestByUrl( HeaderMapUtils.withContentTypeXml( ), defineNewResource( ), defineBaseUrl( ), userName, password );
 
 		assertEquals( 415, response.getLastStatusCode( ) );
 	}

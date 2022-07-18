@@ -2,7 +2,7 @@ package de.fhws.fiw.fds.exam02.tests.util;
 
 public enum ClientUser
 {
-	ANONYMOUS( "", "" );
+	ANONYMOUS( "Admin", "secret" );
 
 	private final String userName;
 

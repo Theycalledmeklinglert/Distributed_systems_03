@@ -14,7 +14,7 @@ public class PostStudentTest extends AbstractStudentTest
 	@Test
 	public void test_201( ) throws IOException
 	{
-		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ) );
+		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), userName, password  );
 		final String locationHeader = response.getLocationHeader( );
 
 		assertEquals( 201, response.getLastStatusCode( ) );
@@ -36,9 +36,9 @@ public class PostStudentTest extends AbstractStudentTest
 	@Test
 	public void test_resource_created_correctly( ) throws IOException
 	{
-		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ) );
+		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), userName, password  );
 		final String locationHeader = responseFromPostRequest.getLocationHeader( );
-		final RestApiResponse<Student> responseFromGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader );
+		final RestApiResponse<Student> responseFromGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader, userName, password  );
 
 		assertEquals( 200, responseFromGetRequest.getLastStatusCode( ) );
 
@@ -58,7 +58,7 @@ public class PostStudentTest extends AbstractStudentTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ) );
+		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), userName, password  );
 		final String locationHeader = response.getLocationHeader( );
 
 		assertEquals( 201, response.getLastStatusCode( ) );
@@ -68,7 +68,7 @@ public class PostStudentTest extends AbstractStudentTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeXml( ), defineNewResource( ) );
+		final RestApiResponse<Student> response = postRequest( HeaderMapUtils.withContentTypeXml( ), defineNewResource( ), userName, password  );
 
 		assertEquals( 415, response.getLastStatusCode( ) );
 		assertNull( response.getResponseSingleData( ) );

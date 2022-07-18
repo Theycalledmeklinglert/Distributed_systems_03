@@ -28,12 +28,12 @@ public class DeleteStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	public void test_204_unlink_student( ) throws IOException
 	{
 		//unlink sub resource
-		final RestApiResponse<Student> responseFromDeleteRequest = unlinkSecondaryResource( HeaderMapUtils.empty( ), definePutAndDeleteUrl( ) );
+		final RestApiResponse<Student> responseFromDeleteRequest = unlinkSecondaryResource( HeaderMapUtils.empty( ), definePutAndDeleteUrl( ), userName, password  );
 
 		assertEquals( 204, responseFromDeleteRequest.getLastStatusCode( ) );
 
 		//load all linked sub resources and make sure that the unlinked sub resource does not appear in the result set
-		final RestApiResponse<Student> responseFromGetCollectionRequest = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=false" );
+		final RestApiResponse<Student> responseFromGetCollectionRequest = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?showAll=false", userName, password );
 
 		assertEquals( 200, responseFromGetCollectionRequest.getLastStatusCode( ) );
 
@@ -48,7 +48,7 @@ public class DeleteStudentOfStudyTripTest extends AbstractStudyTripStudentsTest
 	@Test
 	public void test_hypermedia( ) throws IOException
 	{
-		final RestApiResponse<Student> response = unlinkSecondaryResource( HeaderMapUtils.empty( ), definePutAndDeleteUrl( ) );
+		final RestApiResponse<Student> response = unlinkSecondaryResource( HeaderMapUtils.empty( ), definePutAndDeleteUrl( ), userName, password );
 
 		assertLinkHeaderEquals( response, GET_ALL_LINKED_STUDENTS, defineBaseUrl( ) );
 	}

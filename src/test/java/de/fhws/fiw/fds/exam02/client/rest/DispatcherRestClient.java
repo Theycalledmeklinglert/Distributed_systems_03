@@ -12,9 +12,12 @@ public class DispatcherRestClient
 
 	private final GenericRestClient<EmptyResource> restClient;
 
+	String userName = "Admin";
+	String password = "secret";
+
 	public DispatcherRestClient(  )
 	{
-		this.restClient = new GenericRestClient( defineDefaultHeaders( ) );
+		this.restClient = new GenericRestClient(userName, password, defineDefaultHeaders( ) );
 	}
 
 	private HeaderMap defineDefaultHeaders( )
@@ -27,7 +30,7 @@ public class DispatcherRestClient
 
 	public DispatcherRestClient( final HeaderMap headers )
 	{
-		this.restClient = new GenericRestClient<>(headers );
+		this.restClient = new GenericRestClient<>(userName, password, headers );
 	}
 
 	public RestApiResponse<EmptyResource> triggerDispatcherRequest( ) throws IOException

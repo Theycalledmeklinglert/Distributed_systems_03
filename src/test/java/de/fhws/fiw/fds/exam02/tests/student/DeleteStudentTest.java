@@ -17,24 +17,26 @@ public class DeleteStudentTest extends AbstractStudentTest
 	public void test_204_and_404( ) throws IOException
 	{
 		//post new resource
-		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ) );
+		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), userName, password );
+
+		System.out.println(responseFromPostRequest.getLastStatusCode());
 
 		final String locationHeader = responseFromPostRequest.getLocationHeader( );
 
 		//get new resource
-		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader );
+		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader, userName, password );
 
 		final Student studentToDelete = responseFromFirstGetRequest.getResponseSingleData( );
 
 		assertNotNull( studentToDelete );
 
 		//delete new resource
-		final RestApiResponse<Student> responseFromDeleteRequest = deleteRequest( HeaderMapUtils.empty( ), studentToDelete );
+		final RestApiResponse<Student> responseFromDeleteRequest = deleteRequest( HeaderMapUtils.empty( ), studentToDelete, userName, password );
 
 		assertEquals( 204, responseFromDeleteRequest.getLastStatusCode( ) );
 
 		//try to get deleted resource
-		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader );
+		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader, userName, password );
 
 		assertEquals( 404, responseFromSecondGetRequest.getLastStatusCode( ) );
 
@@ -64,16 +66,16 @@ public class DeleteStudentTest extends AbstractStudentTest
 
 	protected RestApiResponse<Student> postAndDeleteRequest( ) throws IOException
 	{
-		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ) );
+		final RestApiResponse<Student> responseFromPostRequest = postRequest( HeaderMapUtils.withContentTypeJson( ), defineNewResource( ), userName, password );
 
 		final String locationHeader = responseFromPostRequest.getLocationHeader( );
 
-		final RestApiResponse<Student> responseFromFirstRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader );
+		final RestApiResponse<Student> responseFromFirstRequest = getSingleRequestByUrl( HeaderMapUtils.withAcceptJson( ), locationHeader, userName, password );
 
 		final Student studentToDelete = responseFromFirstRequest.getResponseSingleData( );
 
 		assertNotNull( studentToDelete );
 
-		return deleteRequest( HeaderMapUtils.empty( ), studentToDelete );
+		return deleteRequest( HeaderMapUtils.empty( ), studentToDelete, userName, password );
 	}
 }

@@ -17,9 +17,12 @@ public abstract class AbstractStudentTest extends AbstractTest<Student, StudentR
 
 	protected final static String[] STUDENTS_SORTED = new String[]{ JAMES_BOND, ERIKA_MUSTERMANN, MAX_MUSTERMANN, HARRY_POTTER };
 
-	@Override protected StudentRestClient newRestClient( final HeaderMap headers )
+	String userName = "Admin";
+	String password = "secret";
+
+	@Override protected StudentRestClient newRestClient(String userName, String password, final HeaderMap headers )
 	{
-		return new StudentRestClient( headers );
+		return new StudentRestClient(userName, password, headers );
 	}
 
 	@Override protected String defineBaseUrl( )

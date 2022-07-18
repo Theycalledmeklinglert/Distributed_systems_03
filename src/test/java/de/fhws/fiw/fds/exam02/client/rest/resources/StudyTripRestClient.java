@@ -9,9 +9,9 @@ import java.util.List;
 
 public class StudyTripRestClient extends AbstractResourceRestClient<StudyTrip>
 {
-	public StudyTripRestClient( final HeaderMap headers )
+	public StudyTripRestClient(String userName, String password, final HeaderMap headers )
 	{
-		super( headers );
+		super(userName, password, headers );
 	}
 
 	@Override protected String defineUrl( )

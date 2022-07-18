@@ -10,7 +10,7 @@ public class ResetDatabaseForTesting
 {
 	public void reset( )
 	{
-		final GenericWebClient<EmptyResource> webClient = new GenericWebClient<EmptyResource>( );
+		final GenericWebClient<EmptyResource> webClient = new GenericWebClient<EmptyResource>("Admin", "secret" );
 
 		try
 		{

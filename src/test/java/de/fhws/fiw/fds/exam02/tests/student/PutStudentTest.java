@@ -20,7 +20,7 @@ public class PutStudentTest extends AbstractStudentTest
 	{
 		final Student student = defineStudent( );
 
-		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), student );
+		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), student, userName, password  );
 
 		assertEquals( 204, response.getLastStatusCode( ) );
 	}
@@ -49,7 +49,7 @@ public class PutStudentTest extends AbstractStudentTest
 
 		originalStudent.setFirstName( "Julian" );
 
-		final RestApiResponse<Student> responseFromFirstPutRequest = putRequest( HeaderMapUtils.withContentTypeJson( ), originalStudent );
+		final RestApiResponse<Student> responseFromFirstPutRequest = putRequest( HeaderMapUtils.withContentTypeJson( ), originalStudent, userName, password  );
 
 		assertEquals( 204, responseFromFirstPutRequest.getLastStatusCode( ) );
 
@@ -60,7 +60,7 @@ public class PutStudentTest extends AbstractStudentTest
 
 	private Student getResourceById( final long id ) throws IOException
 	{
-		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), id );
+		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), id, userName, password  );
 
 		final Student student = responseFromFirstGetRequest.getResponseSingleData( );
 
@@ -72,7 +72,7 @@ public class PutStudentTest extends AbstractStudentTest
 	@Test
 	public void test_hypermedia( ) throws IOException
 	{
-		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), defineStudent( ) );
+		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), defineStudent( ), userName, password  );
 
 		assertLinkHeaderEquals( response, GET_SINGLE_STUDENT, BASE_URL + "students/1" );
 		assertLinkHeaderEquals( response, SELF, BASE_URL + "students/1" );
@@ -81,7 +81,7 @@ public class PutStudentTest extends AbstractStudentTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), defineStudent( ) );
+		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeJson( ), defineStudent( ), userName, password  );
 
 		assertEquals( 204, response.getLastStatusCode( ) );
 	}
@@ -89,7 +89,7 @@ public class PutStudentTest extends AbstractStudentTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeXml( ), defineStudent( ) );
+		final RestApiResponse<Student> response = putRequest( HeaderMapUtils.withContentTypeXml( ), defineStudent( ), userName, password  );
 
 		assertEquals( 415, response.getLastStatusCode( ) );
 	}
@@ -98,7 +98,7 @@ public class PutStudentTest extends AbstractStudentTest
 	public void test_conditional_put_204( ) throws IOException
 	{
 		//user A loads a student
-		final RestApiResponse<Student> responseFromGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> responseFromGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 		final Student student = responseFromGetRequest.getResponseSingleData( );
 
 		assertHeaderExists( responseFromGetRequest, ETAG );
@@ -111,7 +111,7 @@ public class PutStudentTest extends AbstractStudentTest
 		final HeaderMap headersForPutRequestForUserA = HeaderMapUtils.withContentTypeJson( );
 		headersForPutRequestForUserA.addHeader( IF_MATCH, initialEtag );
 
-		final RestApiResponse<Student> responseFromPutRequest = putRequest( headersForPutRequestForUserA, student );
+		final RestApiResponse<Student> responseFromPutRequest = putRequest( headersForPutRequestForUserA, student, userName, password  );
 
 		assertEquals( 204, responseFromPutRequest.getLastStatusCode( ) );
 
@@ -122,7 +122,7 @@ public class PutStudentTest extends AbstractStudentTest
 	public void test_conditional_put_412( ) throws IOException
 	{
 		//user A loads a student
-		final RestApiResponse<Student> responseFromGetRequestForUserA = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> responseFromGetRequestForUserA = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 		final Student studentForUserA = responseFromGetRequestForUserA.getResponseSingleData( );
 
 		assertHeaderExists( responseFromGetRequestForUserA, ETAG );
@@ -130,7 +130,7 @@ public class PutStudentTest extends AbstractStudentTest
 		final String initialEtagForUserA = responseFromGetRequestForUserA.getEtagHeader( );
 
 		//user B loads the same student
-		final RestApiResponse<Student> responseFromGetRequestForUserB = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> responseFromGetRequestForUserB = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 		final Student studentForUserB = responseFromGetRequestForUserB.getResponseSingleData( );
 
 		assertHeaderExists( responseFromGetRequestForUserB, ETAG );
@@ -143,7 +143,7 @@ public class PutStudentTest extends AbstractStudentTest
 		final HeaderMap headersForPutRequestForUserB = HeaderMapUtils.withContentTypeJson( );
 		headersForPutRequestForUserB.addHeader( IF_MATCH, initialEtagForUserB );
 
-		final RestApiResponse<Student> responseFromPutRequestForUserB = putRequest( headersForPutRequestForUserB, studentForUserB );
+		final RestApiResponse<Student> responseFromPutRequestForUserB = putRequest( headersForPutRequestForUserB, studentForUserB, userName, password  );
 
 		assertEquals( 204, responseFromPutRequestForUserB.getLastStatusCode( ) );
 
@@ -155,7 +155,7 @@ public class PutStudentTest extends AbstractStudentTest
 		final HeaderMap headersForPutRequestForUserA = HeaderMapUtils.withContentTypeJson( );
 		headersForPutRequestForUserA.addHeader( IF_MATCH, initialEtagForUserA );
 
-		final RestApiResponse<Student> responseFromPutRequestForUserA = putRequest( headersForPutRequestForUserA, studentForUserA );
+		final RestApiResponse<Student> responseFromPutRequestForUserA = putRequest( headersForPutRequestForUserA, studentForUserA, userName, password  );
 
 		assertEquals( 412, responseFromPutRequestForUserA.getLastStatusCode( ) );
 	}

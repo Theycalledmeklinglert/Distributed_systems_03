@@ -19,7 +19,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_200( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 4, response.getResponseCollectionData( ).size( ) );
@@ -28,7 +28,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_hypermedia( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		assertLinkHeaderStartsWith( response, CREATE_STUDENT, BASE_URL + "students" );
 		assertLinkHeaderStartsWith( response, SELF, BASE_URL + "students" );
@@ -37,7 +37,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 	}
@@ -45,7 +45,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptXml( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptXml( ), userName, password );
 
 		assertEquals( 406, response.getLastStatusCode( ) );
 	}
@@ -53,7 +53,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_pagination_negative_offset_parameter( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=-2&size=2" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=-2&size=2", userName ,password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 2, response.getResponseCollectionData( ).size( ) );
@@ -66,7 +66,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_pagination_valid_offset_parameter( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=2&size=2" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=2&size=2", userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 2, response.getResponseCollectionData( ).size( ) );
@@ -107,7 +107,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_pagination_valid_size_parameter( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=0&size=2" );
+		final RestApiResponse<Student> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) + "?offset=0&size=2", userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 		assertEquals( 2, response.getResponseCollectionData( ).size( ) );
@@ -128,7 +128,7 @@ public class GetCollectionStudentTest extends AbstractStudentTest
 	@Test
 	public void test_sort_by_last_name_and_first_name( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ) );
+		final RestApiResponse<Student> response = getCollectionRequest( HeaderMapUtils.withAcceptJson( ), userName, password );
 
 		final List<String> expectedStudentNames = Arrays.asList( STUDENTS_SORTED );
 

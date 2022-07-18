@@ -1,6 +1,6 @@
 package de.fhws.fiw.fds.exam02.api.hypermedia.uris;
 
-import de.fhws.fiw.fds.exam02.Start;
+import de.fhws.fiw.fds.exam03.Start;
 
 public interface IStudyTripStudentUri
 {

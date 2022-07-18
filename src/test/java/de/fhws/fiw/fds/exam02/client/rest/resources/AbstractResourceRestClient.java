@@ -13,9 +13,9 @@ public abstract class AbstractResourceRestClient<R extends AbstractModel>
 {
 	private final GenericRestClient<R> restClient;
 
-	public AbstractResourceRestClient( final HeaderMap headers )
+	public AbstractResourceRestClient(String userName, String password, final HeaderMap headers )
 	{
-		this.restClient = new GenericRestClient( headers );
+		this.restClient = new GenericRestClient( userName, password, headers );
 	}
 
 	protected abstract String defineUrl( );

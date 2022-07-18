@@ -7,8 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
-public class WebApiResponse<T extends AbstractModel>
-{
+public class WebApiResponse<T extends AbstractModel> {
 	private final Collection<T> responseData;
 
 	private final Headers responseHeaders;

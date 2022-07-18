@@ -81,7 +81,7 @@ public class GetStudyTripReportState extends AbstractGetCollectionState<StudyTri
 
 			for(StudyTrip trip : sortedStudyTrips)
 			{
-				Collection<Student> students = storage.readAllByPredicate(trip.getPrimaryId(), new Predicate<Student>() {
+				Collection<Student> students = storage.readByPredicate(trip.getId(), new Predicate<Student>() {
 					@Override
 					public boolean test(Student student) {
 						return true;

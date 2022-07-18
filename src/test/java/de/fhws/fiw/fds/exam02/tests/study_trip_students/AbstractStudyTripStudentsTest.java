@@ -17,10 +17,13 @@ public abstract class AbstractStudyTripStudentsTest extends AbstractSubResourceT
 
 	protected final static String[] STUDENTS_SORTED = new String[]{ JAMES_BOND, ERIKA_MUSTERMANN, MAX_MUSTERMANN, HARRY_POTTER };
 
+	String userName = "Admin";
+	String password = "secret";
+
 	@Override
-	protected StudyTripStudentRestClient newRestClient( final HeaderMap headers )
+	protected StudyTripStudentRestClient newRestClient( String userName, String password, final HeaderMap headers )
 	{
-		return new StudyTripStudentRestClient( headers );
+		return new StudyTripStudentRestClient(userName, password, headers );
 	}
 
 	@Override

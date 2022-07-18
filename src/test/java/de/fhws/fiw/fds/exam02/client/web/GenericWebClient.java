@@ -18,11 +18,14 @@ package de.fhws.fiw.fds.exam02.client.web;
 
 import com.owlike.genson.GenericType;
 import com.owlike.genson.Genson;
+import de.fhws.fiw.fds.exam02.client.IBaseUrl;
 import de.fhws.fiw.fds.exam02.client.auth.BasicAuthInterceptor;
+import de.fhws.fiw.fds.exam02.client.auth.JWTAuthInterceptor;
 import de.fhws.fiw.fds.exam02.tests.models.AbstractModel;
 import de.fhws.fiw.fds.exam02.tests.util.headers.HeaderMap;
 import okhttp3.*;
 
+import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +36,7 @@ public class GenericWebClient<T extends AbstractModel>
 
 	private final HeaderMap headers;
 
-	private final OkHttpClient client;
+	private OkHttpClient client;
 
 	private final Genson genson;
 
@@ -55,13 +58,40 @@ public class GenericWebClient<T extends AbstractModel>
 		final HeaderMap headers )
 	{
 		this.headers = headers;
-
-		this.client = new OkHttpClient.Builder( )
-			.addInterceptor( new BasicAuthInterceptor( userName, password ) )
-			.build( );
+		sendAuthRequest(userName, password);
 
 		this.genson = new Genson( );
 	}
+
+	private void sendAuthRequest(final String userName, final String password ) {
+		String url = IBaseUrl.BASE_URL + "users/me";
+
+		this.client = new OkHttpClient.Builder()
+				.addInterceptor(new BasicAuthInterceptor(userName, password))
+				.build();
+
+		Request basicAuthRequest = new Request.Builder().url(url).get().build();
+		final Response response;
+		String jwt = null;
+
+		try {
+			response = client.newCall(basicAuthRequest).execute();
+
+			if (response.code() != 200) {
+				throw new WebApplicationException(response.code());
+			}
+			jwt = response.body().string();
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		System.out.println(jwt);
+		this.client = new OkHttpClient.Builder().addInterceptor(new JWTAuthInterceptor(jwt)).build();
+	}
+
+
 
 	public WebApiResponse<T> sendGetSingleRequest( final String url ) throws IOException
 	{

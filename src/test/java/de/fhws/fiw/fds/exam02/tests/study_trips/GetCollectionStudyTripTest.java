@@ -17,7 +17,7 @@ public class GetCollectionStudyTripTest extends AbstractStudyTripTest
 	@Test
 	public void test_sort_by_start_date( ) throws IOException
 	{
-		final RestApiResponse<StudyTrip> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ) );
+		final RestApiResponse<StudyTrip> response = getCollectionRequestByUrl( HeaderMapUtils.withAcceptJson( ), defineBaseUrl( ), userName, password  );
 
 		final List<String> receivedStudyTripNames = extractStudyTripNames( response );
 

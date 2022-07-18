@@ -19,7 +19,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	@Test
 	public void test_200( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 
@@ -39,7 +39,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	@Test
 	public void test_hypermedia( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password );
 
 		checkLinkHeaders( response );
 	}
@@ -54,7 +54,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	@Test
 	public void test_correct_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 
 		assertEquals( 200, response.getLastStatusCode( ) );
 	}
@@ -62,7 +62,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	@Test
 	public void test_incorrect_media_type( ) throws IOException
 	{
-		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1 );
+		final RestApiResponse<Student> response = getSingleRequestById( HeaderMapUtils.withAcceptXml( ), 1, userName, password  );
 
 		assertEquals( 406, response.getLastStatusCode( ) );
 	}
@@ -71,7 +71,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	public void test_conditional_get_304( ) throws IOException
 	{
 		//user A loads a student
-		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 
 		assertHeaderExists( responseFromFirstGetRequest, ETAG );
 
@@ -81,7 +81,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 		final HeaderMap headersForSecondGetRequest = HeaderMapUtils.withAcceptJson( );
 		headersForSecondGetRequest.addHeader( IF_NONE_MATCH, etag );
 
-		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1 );
+		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
 
 		assertEquals( 304, responseFromSecondGetRequest.getLastStatusCode( ) );
 	}
@@ -90,7 +90,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 	public void test_conditional_get_200( ) throws IOException
 	{
 		//user A loads a student
-		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1 );
+		final RestApiResponse<Student> responseFromFirstGetRequest = getSingleRequestById( HeaderMapUtils.withAcceptJson( ), 1, userName, password  );
 		final Student student = responseFromFirstGetRequest.getResponseSingleData( );
 
 		assertHeaderExists( responseFromFirstGetRequest, ETAG );
@@ -103,7 +103,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 		final HeaderMap headersForPutRequestForUserB = HeaderMapUtils.withContentTypeJson( );
 		headersForPutRequestForUserB.addHeader( IF_MATCH, initialEtag );
 
-		final RestApiResponse<Student> responseFromPutRequest = putRequest( headersForPutRequestForUserB, student );
+		final RestApiResponse<Student> responseFromPutRequest = putRequest( headersForPutRequestForUserB, student, userName, password  );
 
 		assertEquals( 204, responseFromPutRequest.getLastStatusCode( ) );
 
@@ -113,7 +113,7 @@ public class GetSingleStudentTest extends AbstractStudentTest
 		final HeaderMap headersForSecondGetRequest = HeaderMapUtils.withAcceptJson( );
 		headersForSecondGetRequest.addHeader( IF_NONE_MATCH, initialEtag );
 
-		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1 );
+		final RestApiResponse<Student> responseFromSecondGetRequest = getSingleRequestById( headersForSecondGetRequest, 1, userName, password  );
 
 		assertEquals( 200, responseFromSecondGetRequest.getLastStatusCode( ) );
 		assertNotNull( responseFromSecondGetRequest.getResponseSingleData( ) );

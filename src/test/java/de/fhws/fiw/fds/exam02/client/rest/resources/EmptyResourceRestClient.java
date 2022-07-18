@@ -8,9 +8,9 @@ import java.util.List;
 
 public class EmptyResourceRestClient extends AbstractResourceRestClient<EmptyResource>
 {
-	public EmptyResourceRestClient( final HeaderMap headers )
+	public EmptyResourceRestClient(String userName, String password, final HeaderMap headers )
 	{
-		super( headers );
+		super(userName, password, headers );
 	}
 
 	@Override protected String defineUrl( )
